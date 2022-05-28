@@ -18,7 +18,7 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           
-
+            <CodeWindow/>
 
 
         </Grid>
