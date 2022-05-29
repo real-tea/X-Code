@@ -8,8 +8,9 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 // Chakra-ui modules
 
-import CodeWindow from './components/CodeWindow';
-
+// import CodeWindow from './components/CodeWindow';
+// import Input from './components/Input';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -18,8 +19,7 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           
-            <CodeWindow/>
-
+          <Footer/>  
 
         </Grid>
       </Box>
