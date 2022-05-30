@@ -10,7 +10,9 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 // import CodeWindow from './components/CodeWindow';
 // import Input from './components/Input';
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
+
+import Landing from './components/Landing';
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           
-          <Footer/>  
-
+          <Landing/>
+          
         </Grid>
       </Box>
     </ChakraProvider>
