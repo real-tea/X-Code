@@ -15,7 +15,7 @@ const CodeWindow = ({onChange , language , code ,theme}) => {
   return (
     <Box overflow='hidden' w="full" h="full" shadow='4xl' rounded='md'>
         <Editor
-        // theme={theme}
+        theme={theme}
         language={language || "javascript"}
         defaultValue="//get Started"
         height="85vh"

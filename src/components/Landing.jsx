@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ToastContainer , toast } from 'react-toastify';
 import axios from 'axios';
+
+import { defineTheme } from '../Themes/themes';
 
 import DropDown from './DropDown';
 import ThemeDropdown from './ThemeDropdown';
@@ -18,6 +20,7 @@ console.log("🚀Looks Nice!")
 
 function Landing() {
 
+  const [ theme , setTheme ] = useState("dawn")
   const [ lang , setLang ] = useState(language[0]);
   const [ code , setCode ] = useState(Default);
   const [ outputDetails , setOutputDetails] = useState(null);
@@ -115,6 +118,22 @@ function Landing() {
   }
 
 
+  const ThemeChange = (th) =>{
+    const theme = th;
+
+    console.log("theme... ", theme);
+
+    if(["light" , "vs-dark"].includes(theme.value)){
+      setTheme(theme);
+    }else{
+      defineTheme(theme.value).then((_)=>setTheme(theme));
+    }
+  }
+
+  // useEffect(()=>{
+  //   defineTheme("")
+  // })
+
   const showToast=(message)=>{
     toast.success(message || '🦄 Compiled Successfully!', {
     position: "top-left",
@@ -164,8 +183,10 @@ function Landing() {
                   <DropDown onSelectChange={onSelectChange}/>    
           </div> 
           <div className = 'px-4 py-2'>
-                  <ThemeDropdown/>
+                  <ThemeDropdown
+                  handleThemeChange = {ThemeChange} theme = {theme}/>
           </div>   
+
         </div>
 {/*-> Code editor */}
 
@@ -175,7 +196,7 @@ function Landing() {
             code={code}
             onChange = {onChange}
             language={language.value}
-            // theme={theme.value}
+            theme={theme.value}
             />
           </div>
           
