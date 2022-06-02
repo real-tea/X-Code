@@ -12,7 +12,7 @@ import OutputWindow from './OutputWindow';
 import Input from './Input';
 import Footer from './Footer';
 
-import language from '../constants/Language';
+import langOptions from '../constants/Language';
 
 const Default=`
 console.log("🚀Looks Nice!")
@@ -21,15 +21,15 @@ console.log("🚀Looks Nice!")
 function Landing() {
 
   const [ theme , setTheme ] = useState("dawn")
-  const [ lang , setLang ] = useState(language[0]);
+  const [ language , setLanguage ] = useState(langOptions[0]);
   const [ code , setCode ] = useState(Default);
   const [ outputDetails , setOutputDetails] = useState(null);
   const [ customInput , setCustomInput ] = useState(" ");
   const [ processing , setProcessing ] = useState(null);
 
-  const onSelectChange=(lang)=>{
-      console.log(lang);
-      setLang(lang);
+  const onSelectChange=(language)=>{
+      console.log(language);
+      setLanguage(language);
   }
 
   const onChange = (action , data)=>{
@@ -45,13 +45,13 @@ function Landing() {
 
     const Data={
       language_id:language.id,
-      source_code:btoa(code),
-      stdin:btoa(customInput)
+      source_code: btoa(code),
+      stdin: btoa(customInput),
     };
     const options = {
       method : "POST",
       url : "https://judge0-ce.p.rapidapi.com/submissions",
-      params: {base64_encoded: 'true', fields: '*'},
+      params: {base64_encoded: "true", fields: '*'},
       headers: {
         'content-type': 'application/json',
         'Content-Type': 'application/json',
@@ -60,14 +60,17 @@ function Landing() {
       },
       data : Data
     };
-
+    console.log(options.data);
 
     axios.request(options).then(function (response) {
       console.log(response.data);
       checkStatus(response.data.token)
-    }).catch(function (error) {
-      const status = error.response.status;
-
+    }).catch(function (err) {
+      // const status = error.response.status;
+      let error = err.response ? err.response.data : err;
+      // get error status
+      let status = err.response.status;
+      console.log("status", status);
       if(status === 429)
       {
         // console.log("Limit of 100 submissions per day exceeded");
@@ -75,6 +78,7 @@ function Landing() {
       }// too many requests
 
       setProcessing(false);
+      console.log(error);
       
     });
 
@@ -130,9 +134,12 @@ function Landing() {
     }
   }
 
-  // useEffect(()=>{
-  //   defineTheme("")
-  // })
+  useEffect(() => {
+    defineTheme("oceanic-next").then((_) =>
+      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
+    );
+  }, []);
+
 
   const showToast=(message)=>{
     toast.success(message || '🦄 Compiled Successfully!', {
@@ -195,7 +202,7 @@ function Landing() {
             <CodeWindow
             code={code}
             onChange = {onChange}
-            language={language.value}
+            language={language?.value}
             theme={theme.value}
             />
           </div>

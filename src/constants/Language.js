@@ -1,4 +1,4 @@
-const language = [
+const langOptions = [
     {
         id: 63,
         name: "JavaScript (Node.js 12.14.0)",
@@ -88,4 +88,4 @@ const language = [
       },
 ]
 
-export default language;
+export default langOptions;
