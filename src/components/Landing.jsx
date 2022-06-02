@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ToastContainer , toast } from 'react-toastify';
+
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from 'axios';
 
 import { defineTheme } from '../Themes/themes';
@@ -110,7 +113,7 @@ function Landing() {
       } else {
         setProcessing(false);
         setOutputDetails(response.data);
-        showToast(`Compiled Successfully!`);
+        showSuccessToast(`Compiled Successfully!`);
         console.log("response.data", response.data);
         return;
       }
@@ -141,9 +144,9 @@ function Landing() {
   }, []);
 
 
-  const showToast=(message)=>{
+  const showSuccessToast=(message)=>{
     toast.success(message || '🦄 Compiled Successfully!', {
-    position: "top-left",
+    position: "top-center",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -167,7 +170,7 @@ function Landing() {
   return (
     <>
         <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
